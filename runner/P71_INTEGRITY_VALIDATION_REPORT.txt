@@ -1,0 +1,45 @@
+PUZZLE 71 INTEGRITY CANARY - ACTUAL EXECUTION REPORT
+===================================================
+
+Scope: real CPU ECC/HASH160 evaluation using python-step and OpenSSL-backed
+independent scalar multiplication for validation samples.
+
+Address Base58Check identity: PASS
+HASH160 identity: f6f5431d25bbf7b12e8add9af5e3475c44a0a5b8 - PASS
+Actual Puzzle 71 compressed public key: UNKNOWN / NOT VERIFIED
+
+Synthetic canary reference test identity:
+  Compressed pubkey: 021b6166b7429d3524141271d41eb2c1281440945b9e3e9d2b5684dffd1669e1f7
+  HASH160: f0691016f7b3a071abd934f98a342becdcc2b3e6
+  Known-key identity cross-validated with independent secp256k1 + cryptography.
+  Its corresponding scalar is deliberately OUTSIDE the canary scan interval.
+
+Production canary geometry configured: 100,000,000 keys; 100 milestones;
+  worker forward: 50 million, worker backward: 50 million.
+
+REAL EXECUTION IN THIS ENVIRONMENT:
+  First run: 1,000,000 keys, backward worker, 1 independent 1M checkpoint.
+             Actual worker compute time: 19.845 seconds.
+  Second run: resumed from checkpoint, 1,000,000 additional keys, forward worker.
+  Total durable real CPU evaluations: 2,000,000.
+  Verified one-million-key milestones: 2/100.
+  Remaining milestones: 98/100, total 98,000,000 keys.
+  Full 100-million-key canary technical status: NOT PASSED / INCOMPLETE.
+  GPU tuning: LOCKED.
+
+Automated checks passed:
+  - secp256k1 published generator point and HASH160 vectors
+  - valid Puzzle 71 Base58Check HASH160 target
+  - 2 direction positive-match short-range tests with known synthetic key
+  - 2 direction negative-match short-range tests
+  - real ECC from Python incremental point stepping vs independent OpenSSL ECC
+  - safe interruption and genuine resumed worker checkpoint
+  - independent 1,000,000 candidate first/mid/final HASH160 samples
+  - 1M-per-segment SHA256 chain construction and replay verification
+  - intentional tampering with recorded sampled hash rejected
+  - intentional tampering with worker count rejected
+  - incomplete canary did not enable the manifest-runner Gate 2
+  - exact 16-column evidence.csv header preserved
+
+IMPORTANT: This report describes tests actually executed. Nothing claims
+100 million evaluations already completed or a found Puzzle 71 public key.
