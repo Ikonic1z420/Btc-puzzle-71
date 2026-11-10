@@ -1,0 +1,22 @@
+{
+  "chunks": [
+    {
+      "rank": 1,
+      "chunk_id": 42,
+      "start": "400000000000000000",
+      "end": "400000000000ffffff",
+      "score": 97,
+      "forward_status": "pending",
+      "backward_status": "pending"
+    },
+    {
+      "rank": 2,
+      "chunk_id": 43,
+      "start": "400000000001000000",
+      "end": "400000000001ffffff",
+      "score": 92,
+      "forward_status": "pending",
+      "backward_status": "pending"
+    }
+  ]
+}
